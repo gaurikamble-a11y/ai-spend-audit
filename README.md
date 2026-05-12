@@ -1,58 +1,72 @@
 # AI Spend Audit
 
-AI Spend Audit is a modern SaaS web application that helps teams analyze and optimize their AI tool spending.
+AI Spend Audit is a small SaaS-style prototype that helps startups and small teams review their AI subscription costs and identify opportunities to reduce unnecessary spending.
 
-## Features
+The idea behind the project is simple:
+many teams gradually subscribe to multiple AI tools (ChatGPT, Claude, Cursor, Copilot, Gemini, etc.) without regularly checking whether their current plans still make financial sense.
 
-- AI tool spend tracking
-- Savings recommendations
-- Monthly and annual cost analysis
-- Modern SaaS dashboard UI
-- Responsive design
-- Audit result generation
+This project provides a quick audit flow that:
+- estimates current spending
+- recommends more cost-effective plans
+- highlights potential monthly and annual savings
 
-## Tech Stack
+---
 
-- Next.js
-- TypeScript
-- Tailwind CSS
-- shadcn/ui
-- React
+# Live Demo
 
-## Supported AI Tools
+https://ai-spend-audit-two-phi.vercel.app/
+
+---
+
+# What The App Does
+
+Users can:
+- choose an AI tool
+- select their current subscription plan
+- enter team size and seat count
+- generate an instant spending audit
+
+The app then:
+- calculates current spend
+- recommends cheaper or better-sized plans
+- estimates monthly + yearly savings
+- explains the recommendation in plain language
+
+Audit results are persisted using localStorage so the user can refresh the page without losing progress.
+
+---
+
+# Supported AI Tools
 
 - ChatGPT
 - Claude
 - Cursor
-- Copilot
+- GitHub Copilot
 - Gemini
 - Windsurf
 
-## Project Structure
+---
 
-/components
-/lib
-/app
-/public
+# Tech Stack
 
-## Current Progress
+Frontend:
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
 
-- Landing page completed
-- Spend audit form completed
-- Audit engine integration in progress
+Testing:
+- Vitest
 
-## Future Improvements
+Deployment:
+- Vercel
 
-- Supabase integration
-- Shareable reports
-- AI-generated summaries
-- User authentication
+---
 
-## Getting Started
+# Running Locally
+
+Install dependencies:
 
 ```bash
 npm install
-npm run dev
-``` 
-Open:
-http://localhost:3000
