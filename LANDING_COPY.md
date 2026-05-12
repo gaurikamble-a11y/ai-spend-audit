@@ -1,73 +1,57 @@
-# Landing Page Copy
-
-## Hero Headline
+# Hero Headline
 
 Stop Overspending on AI Tools
 
 ---
 
-## Subheadline
+# Subheadline
 
-Get a free audit of your AI subscriptions and discover where your team can reduce unnecessary spending.
-
----
-
-## Primary CTA
-
-Generate Free Audit
+Instantly audit your AI subscriptions, identify waste, and discover cheaper plans for your startup team.
 
 ---
 
-## Supporting Copy
+# Primary CTA
 
-AI subscriptions are becoming a major recurring cost for startups and small teams. Many companies continue paying for plans that no longer match their actual usage.
-
-AI Spend Audit helps teams:
-- understand current AI spending
-- identify unnecessary upgrades
-- compare lower-cost alternatives
-- estimate monthly and annual savings
-
-The tool provides instant recommendations based on team size, usage patterns, and selected plans.
+Run Free AI Spend Audit
 
 ---
 
-## Social Proof (Mocked for Prototype)
+# Social Proof (Mocked)
 
-"Helped us realize we were overpaying for multiple overlapping AI tools."
-— Early beta tester (mock testimonial)
+> “We discovered nearly $900/month in unnecessary AI subscriptions across our engineering team.”
+> — Mocked testimonial, Seed-stage SaaS founder
 
-"We reduced monthly AI spending after switching plans suggested by the audit."
-— Startup founder (mock testimonial)
+> “The audit took less than two minutes and immediately showed overlapping tools we forgot we were paying for.”
+> — Mocked testimonial, Product Lead
 
 ---
 
 # FAQ
 
-## Is this tool free?
+## Is this connected to my billing accounts?
 
-Yes. The audit tool is completely free to use.
-
----
-
-## Do I need to create an account?
-
-No login is required to generate an audit.
+No. The audit is fully manual and does not require access to your billing systems or API keys.
 
 ---
 
-## How accurate are the recommendations?
+## How accurate are the savings recommendations?
 
-Recommendations are based on publicly available pricing and rule-based optimization logic.
-
----
-
-## Does the tool store my payment information?
-
-No payment details are collected.
+Recommendations are based on current publicly listed pricing and usage-fit assumptions documented in PRICING_DATA.md.
 
 ---
 
-## Who is this tool designed for?
+## Does the tool recommend switching vendors?
 
-Primarily startups, indie developers, and small engineering teams using multiple AI subscriptions.
+Only when a substantially cheaper alternative provides similar functionality for the stated use case.
+
+---
+
+## Why are some audits marked as already optimal?
+
+The tool is designed to be honest. If the current setup already fits the team's usage efficiently, no artificial savings are generated.
+
+---
+
+## What happens after I submit an audit?
+
+Users can optionally save or share their audit results. High-savings cases may be relevant for Credex infrastructure credit offerings.
