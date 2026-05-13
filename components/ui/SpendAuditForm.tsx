@@ -498,7 +498,7 @@ export default function SpendAuditForm() {
         >
           <div className="absolute inset-x-0 top-0 h-0.5 transition-all duration-500" style={{ backgroundColor: accentColor }} />
 
-          <form onSubmit={handleSubmit} noValidate className="p-6 space-y-5">
+          <form onSubmit={handleSubmit} noValidate suppressHydrationWarning className="p-6 space-y-5">
 
             {/* Engine error banner — only shown when runAudit() itself throws */}
             {auditError && (

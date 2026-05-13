@@ -1,18 +1,6 @@
 "use client";
 
-/**
- * AuditResultCard.tsx
- * -------------------
- * Displays the output of runAudit() in a polished dark card.
- *
- * Props:
- *   result  — AuditResult from the audit engine
- *   onReset — callback to clear the result and show the form again
- */
-
 import { AuditResult } from "@/lib/audit";
-
-// ── Tool accent colours (mirrors SpendAuditForm) ─────────────────────────────
 
 const TOOL_COLORS: Record<string, string> = {
   ChatGPT:  "#10a37f",
@@ -23,8 +11,6 @@ const TOOL_COLORS: Record<string, string> = {
   Windsurf: "#06b6d4",
 };
 
-// ── Helper: format dollars ────────────────────────────────────────────────────
-
 function usd(amount: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -33,37 +19,22 @@ function usd(amount: number): string {
   }).format(amount);
 }
 
-// ── Sub-component: a single KPI tile ─────────────────────────────────────────
-
 interface KpiTileProps {
   label: string;
   value: string;
-  /** Optional highlight colour for the value text */
   valueColor?: string;
-  /** Optional small badge below the value */
   badge?: string;
 }
 
 function KpiTile({ label, value, valueColor, badge }: KpiTileProps) {
   return (
     <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4 flex flex-col gap-1">
-      <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
-        {label}
-      </span>
-      <span
-        className="text-2xl font-bold tabular-nums"
-        style={{ color: valueColor ?? "#f4f4f5" }}
-      >
-        {value}
-      </span>
-      {badge && (
-        <span className="text-[11px] text-zinc-500">{badge}</span>
-      )}
+      <span className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">{label}</span>
+      <span className="text-2xl font-bold tabular-nums" style={{ color: valueColor ?? "#f4f4f5" }}>{value}</span>
+      {badge && <span className="text-[11px] text-zinc-500">{badge}</span>}
     </div>
   );
 }
-
-// ── Main component ────────────────────────────────────────────────────────────
 
 interface AuditResultCardProps {
   result: AuditResult;
@@ -72,14 +43,47 @@ interface AuditResultCardProps {
 
 export default function AuditResultCard({ result, onReset }: AuditResultCardProps) {
   const accentColor = TOOL_COLORS[result.toolName] ?? "#6366f1";
-  const hasSavings = result.monthlySavings > 0;
+  const hasSavings  = result.monthlySavings > 0;
+
+  // Static summary — synchronous, no hooks, zero hydration risk
+  const aiSummary = result.isOverspending
+    ? `Your current ${result.toolName} setup is more expensive than necessary. The audit identified ${usd(result.monthlySavings)}/month (${usd(result.annualSavings)}/year) in potential savings by switching from "${result.currentPlanName}" to "${result.recommendedPlanName}". Rightsizing this subscription is the fastest way to reduce your AI tooling costs.`
+    : `Your current ${result.toolName} setup is well optimized for your team size. You are already on the most cost-effective plan ("${result.currentPlanName}") at ${usd(result.currentSpend)}/month — no changes are needed at this time.`;
+
+  function handleSaveReport() {
+    const lines = [
+      `AI Spend Audit Report — ${result.toolName}`,
+      `Generated: ${new Date().toISOString()}`,
+      ``,
+      `Current Plan:      ${result.currentPlanName}`,
+      `Current Spend:     ${usd(result.currentSpend)}/mo`,
+      `Recommended Plan:  ${result.recommendedPlanName}`,
+      `Recommended Spend: ${usd(result.recommendedSpend)}/mo`,
+      `Monthly Savings:   ${usd(result.monthlySavings)}`,
+      `Annual Savings:    ${usd(result.annualSavings)}`,
+      ``,
+      `Recommendation:`,
+      result.recommendation,
+      ``,
+      `AI Summary:`,
+      aiSummary,
+    ];
+    const blob = new Blob([lines.join("\n")], { type: "text/plain" });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement("a");
+    a.href     = url;
+    a.download = `audit-${result.toolName.toLowerCase()}-${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
   return (
     <div className="w-full max-w-lg mx-auto">
 
-      {/* ── Header ─────────────────────────────────────────────────────────── */}
+      {/* Header */}
       <div className="mb-6">
-        {/* Status pill */}
         <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900 px-3 py-1">
           <span
             className="h-1.5 w-1.5 rounded-full"
@@ -89,42 +93,27 @@ export default function AuditResultCard({ result, onReset }: AuditResultCardProp
             {result.isOverspending ? "Overspending Detected" : "Spend Optimised"}
           </span>
         </div>
-
         <h2 className="text-2xl font-bold tracking-tight text-zinc-100">
           {result.toolName} Audit Results
         </h2>
         <p className="mt-1 text-sm text-zinc-500">
-          Current plan:{" "}
-          <span className="font-medium text-zinc-300">{result.currentPlanName}</span>
+          Current plan: <span className="font-medium text-zinc-300">{result.currentPlanName}</span>
         </p>
       </div>
 
-      {/* ── Card ───────────────────────────────────────────────────────────── */}
+      {/* Card */}
       <div
         className="relative overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900 shadow-2xl"
         style={{ boxShadow: `0 0 60px -20px ${accentColor}30` }}
       >
-        {/* Coloured top bar */}
-        <div
-          className="absolute inset-x-0 top-0 h-0.5"
-          style={{ backgroundColor: accentColor }}
-        />
+        <div className="absolute inset-x-0 top-0 h-0.5" style={{ backgroundColor: accentColor }} />
 
         <div className="p-6 space-y-6">
 
-          {/* ── KPI grid ─────────────────────────────────────────────────── */}
+          {/* KPI grid */}
           <div className="grid grid-cols-2 gap-3">
-            <KpiTile
-              label="Current Spend"
-              value={usd(result.currentSpend)}
-              badge="per month"
-            />
-            <KpiTile
-              label="Recommended Spend"
-              value={usd(result.recommendedSpend)}
-              valueColor={accentColor}
-              badge="per month"
-            />
+            <KpiTile label="Current Spend"      value={usd(result.currentSpend)}      badge="per month" />
+            <KpiTile label="Recommended Spend"  value={usd(result.recommendedSpend)}  valueColor={accentColor} badge="per month" />
             <KpiTile
               label="Monthly Savings"
               value={hasSavings ? usd(result.monthlySavings) : "—"}
@@ -139,15 +128,11 @@ export default function AuditResultCard({ result, onReset }: AuditResultCardProp
             />
           </div>
 
-          {/* ── Recommended plan chip ─────────────────────────────────────── */}
+          {/* Recommended plan chip */}
           <div className="flex items-center justify-between rounded-xl border border-zinc-800 bg-zinc-950 px-4 py-3">
             <div>
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-0.5">
-                Recommended Plan
-              </p>
-              <p className="text-sm font-semibold text-zinc-200">
-                {result.recommendedPlanName}
-              </p>
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500 mb-0.5">Recommended Plan</p>
+              <p className="text-sm font-semibold text-zinc-200">{result.recommendedPlanName}</p>
             </div>
             {result.isOverspending ? (
               <span className="rounded-full bg-red-500/10 border border-red-500/30 px-2.5 py-1 text-xs font-semibold text-red-400">
@@ -160,11 +145,11 @@ export default function AuditResultCard({ result, onReset }: AuditResultCardProp
             )}
           </div>
 
-          {/* ── Recommendation message ────────────────────────────────────── */}
+          {/* Recommendation message */}
           <div
             className="rounded-xl border p-4 text-sm leading-relaxed"
             style={{
-              borderColor: result.isOverspending ? "#f87171" + "40" : "#4ade80" + "30",
+              borderColor: result.isOverspending ? "#f8717140" : "#4ade8030",
               backgroundColor: result.isOverspending ? "#f8717108" : "#4ade8008",
               color: "#d4d4d8",
             }}
@@ -172,7 +157,37 @@ export default function AuditResultCard({ result, onReset }: AuditResultCardProp
             {result.recommendation}
           </div>
 
-          {/* ── Savings bar (only shown when there are savings) ───────────── */}
+          {/* AI Audit Summary */}
+          <div className="rounded-xl border border-zinc-700 bg-zinc-950 p-4 space-y-2">
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-zinc-500">
+              AI Audit Summary
+            </p>
+            <p className="text-sm leading-relaxed text-zinc-300">{aiSummary}</p>
+          </div>
+
+          {/* Credex CTA — only for high savings */}
+          {result.monthlySavings > 500 && (
+            <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-4">
+              <p className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-1">
+                You qualify for Credex credits
+              </p>
+              <p className="text-sm text-zinc-300 leading-relaxed mb-3">
+                Credex sells discounted AI credits for Cursor, Claude, and ChatGPT at up to 40% off retail.
+                Teams saving {usd(result.monthlySavings)}/month on plan changes often save an additional{" "}
+                {usd(Math.round(result.monthlySavings * 0.4))}/month through credits.
+              </p>
+              <a
+                href="https://credex.rocks"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-sm font-bold text-white transition hover:bg-emerald-400"
+              >
+                Book a free Credex consultation →
+              </a>
+            </div>
+          )}
+
+          {/* Savings bar */}
           {hasSavings && (
             <div>
               <div className="flex justify-between mb-1.5">
@@ -193,7 +208,7 @@ export default function AuditResultCard({ result, onReset }: AuditResultCardProp
             </div>
           )}
 
-          {/* ── Action buttons ────────────────────────────────────────────── */}
+          {/* Action buttons */}
           <div className="flex gap-3 pt-1">
             <button
               onClick={onReset}
@@ -203,11 +218,9 @@ export default function AuditResultCard({ result, onReset }: AuditResultCardProp
             </button>
             {hasSavings && (
               <button
+                onClick={handleSaveReport}
                 className="flex-1 rounded-xl py-2.5 text-sm font-bold text-white transition"
-                style={{
-                  backgroundColor: accentColor,
-                  boxShadow: `0 4px 16px -6px ${accentColor}80`,
-                }}
+                style={{ backgroundColor: accentColor, boxShadow: `0 4px 16px -6px ${accentColor}80` }}
               >
                 Save Report
               </button>
