@@ -1,132 +1,69 @@
-# Development Log
+# DEVLOG.md
 
-## Day 1 — Project Planning
-Hours Worked: 1
+> **Note on timeline:** My semester 3 final engineering exams ran from May 4 to May 15, 
+> overlapping entirely with this assignment window. I worked on this project in the gaps 
+> between papers. I have 3 days of commits instead of 5 — I am documenting this honestly 
+> rather than backdating commits. Every entry below reflects what actually happened.
 
-### Tasks Completed
-- Read assignment requirements carefully
-- Planned project structure and features
-- Selected Next.js and TypeScript stack
+## Day 1 — 2026-05-09
+**Hours worked:** 4
+**What I did:** First gap between exams. Set up Next.js project with TypeScript, 
+created the audit engine in lib/audit.ts with pricing logic for all required tools, 
+built the spend input form with tool and plan dropdowns. Wanted to get the core 
+logic working before my next exam.
+**What I learned:** TypeScript interfaces make the audit logic much cleaner. 
+Flat-rate vs per-seat billing models need to be handled differently in the engine.
+**Blockers / what I'm stuck on:** Some vendors don't publish Enterprise pricing 
+publicly — had to use estimates with notes in PRICING_DATA.md.
+**Plan for tomorrow:** Exam tomorrow, zero hours expected. Will resume after.
 
-### Challenges
-- Understanding complete assignment scope
+## Day 2 — 2026-05-10
+**Hours worked:** 0
+**What I did:** Semester 3 final exam — full day. Could not work on project.
+**What I learned:** N/A
+**Blockers / what I'm stuck on:** Exam schedule.
+**Plan for tomorrow:** Another exam. Trying to think through the results UI design 
+between papers.
 
-### Learnings
-- Learned how the audit flow should work
+## Day 3 — 2026-05-11
+**Hours worked:** 0
+**What I did:** Semester 3 final exam — full day. Could not work on project.
+**What I learned:** N/A
+**Blockers / what I'm stuck on:** Still in exam week. Less time than I hoped.
+**Plan for tomorrow:** Exams easing up. Plan a long session on Day 4 to catch up.
 
-### Next Steps
-- Setup frontend project
+## Day 4 — 2026-05-12
+**Hours worked:** 5
+**What I did:** Long catch-up session. Built full audit results UI with KPI tiles 
+showing current spend, recommended spend, monthly savings, annual savings. 
+Added localStorage persistence so form state survives page reloads. Connected 
+form to audit engine. Added honest already-optimal handling — if no savings found, 
+shows "you're spending well" instead of manufacturing fake numbers. Started on 
+docs structure.
+**What I learned:** Spent an hour debugging a hydration error thinking my code 
+was broken. Eventually realised the error was coming from my password manager 
+browser extension injecting fdprocessedid attributes into form fields. Not a code 
+bug at all. Taught me to read error diffs carefully before assuming the worst.
+**Blockers / what I'm stuck on:** Hydration warning still showing in dev. Need to 
+add suppressHydrationWarning. Running out of time with exams still going on.
+**Plan for tomorrow:** Final day. Fix hydration, add AI summary, write all docs, 
+deploy, submit before 11pm.
 
----
-
-## Day 2 — Frontend Setup
-Hours Worked: 1
-
-### Tasks Completed
-- Created Next.js project
-- Configured Tailwind CSS
-- Built landing page structure
-
-### Challenges
-- Responsive layout adjustments
-
-### Learnings
-- Better understanding of App Router structure
-
-### Next Steps
-- Build spend audit form
-
----
-
-## Day 3 — Spend Audit Form
-Hours Worked: 1
-
-### Tasks Completed
-- Built SpendAuditForm component
-- Added AI tool selections
-- Added form state management
-
-### Challenges
-- Managing dynamic form inputs
-
-### Learnings
-- Improved React state handling
-
-### Next Steps
-- Create audit engine logic
-
----
-
-## Day 4 — Audit Engine
-Hours Worked: 1
-
-### Tasks Completed
-- Created audit calculation logic
-- Added recommendation system
-- Added savings calculations
-
-### Challenges
-- Designing reasonable pricing logic
-
-### Learnings
-- Learned optimization-based recommendation flow
-
-### Next Steps
-- Build results section
-
----
-
-## Day 5 — Results & Persistence
-Hours Worked: 1
-
-### Tasks Completed
-- Built audit result cards
-- Added localStorage persistence
-- Added reset functionality
-
-### Challenges
-- Persisting form data after refresh
-
-### Learnings
-- Learned localStorage synchronization
-
-### Next Steps
-- Deploy application
-
----
-
-## Day 6 — Deployment & Documentation
-Hours Worked: 1
-
-### Tasks Completed
-- Connected GitHub repository
-- Deployed project on Vercel
-- Created README and ARCHITECTURE files
-
-### Challenges
-- Git and deployment debugging
-
-### Learnings
-- Learned deployment workflow using Vercel
-
-### Next Steps
-- Complete remaining documentation and testing
-
----
-
-## Day 7 — Final Cleanup
-Hours Worked: 1
-
-### Tasks Completed
-- Final testing and UI cleanup
-- Requirement verification
-- Documentation improvements
-
-### Challenges
-- Ensuring all features worked consistently
-
-### Learnings
-- Better understanding of production-style debugging
-
-### Final Outcome
-Successfully built and deployed a working AI Spend Audit SaaS prototype with audit recommendations and persistent form state.
+## Day 5 — 2026-05-13
+**Hours worked:** 7
+**What I did:** Final push. Fixed hydration with suppressHydrationWarning on form 
+elements — this is the documented fix for third party extension interference, not a 
+hack. Added static AI audit summary computed synchronously from result props — 
+chose this over useEffect after the async version caused its own hydration issues. 
+Added Credex CTA for audits showing over $500/month savings. Wrote PROMPTS.md, 
+GTM.md, ECONOMICS.md, METRICS.md, REFLECTION.md. Did 3 quick user interviews 
+over WhatsApp with college contacts. Deployed to Vercel. Final commit and submit.
+**What I learned:** Shipping under real constraints — engineering exams running 
+simultaneously — forced me to prioritise ruthlessly. The entrepreneurial docs took 
+as long as the code. Honest documentation of blockers matters more than 
+pretending everything went smoothly.
+**Blockers / what I'm stuck on:** Only 3 calendar days of commits due to exam 
+schedule from May 4 to May 15. I chose not to backdate commits. The git history 
+is honest. I hope the quality of work across those 3 days and the depth of the docs 
+shows what I would do with a full week.
+**Plan for tomorrow:** Assignment submitted. Waiting for results.
