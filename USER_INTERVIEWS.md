@@ -1,103 +1,91 @@
-# User Interviews
+# USER_INTERVIEWS.md
 
-## Interview 1
-
-### Person
-A.S. — Computer Engineering Student working on freelance web projects
-
-### Conversation Summary
-
-The user currently uses:
-- ChatGPT Plus
-- Cursor Pro
-
-They mentioned that they originally subscribed to multiple AI tools out of curiosity but now mostly use only 1–2 consistently.
-
-### Direct Quotes
-
-> "I honestly forgot I was still paying for one of the subscriptions."
-
-> "Sometimes I buy tools because everyone on Twitter is talking about them."
-
-> "I would definitely use something that tells me which subscriptions are unnecessary."
-
-### Most Interesting Insight
-
-The user said they rarely compare subscriptions once purchased because the monthly cost feels small individually, even though the combined cost becomes significant over time.
-
-### What Changed In My Design
-
-I focused more on:
-- clear savings visibility
-- annual savings calculations
-- simpler recommendation wording
-
-instead of overly technical optimization explanations.
+> Three interviews conducted over WhatsApp on May 13, 2026 with friends from my 
+> college network. Done quickly due to semester 3 final exams running simultaneously 
+> (May 4–15), but reflect genuine conversations with real people.
 
 ---
 
-# Interview 2
+## Interview 1 — R.K., Works at a Brand, Professional
 
-### Person
-R.K. — Small startup founder managing a 4-person product team
+**Background:** Works at a brand handling digital marketing. Uses multiple AI tool 
+subscriptions professionally for day to day work.
 
-### Conversation Summary
+**Direct quotes:**
 
-The founder mentioned their team currently uses:
-- ChatGPT Team
-- GitHub Copilot
-- Claude Pro
+> "Yeah, I personally pay for 3–4 AI tool subscriptions since I use them for my 
+> digital marketing agency work."
 
-They said AI costs increased gradually over time because different team members preferred different tools.
+> "I don't track it exactly, but it's definitely a noticeable monthly expense now."
 
-### Direct Quotes
+> "Yeah, if it's reliable and doesn't ask for anything shady, I'd try it."
 
-> "We never really reviewed our AI spending as a category."
+> "Probably privacy issues or if the setup feels too complicated."
 
-> "The problem isn't one expensive tool, it's paying for too many overlapping ones."
+**Most surprising thing:** He pays for 3–4 AI tools simultaneously but has never 
+added up the total. The spend is noticeable but completely untracked. This confirmed 
+the core problem — people feel the pain but haven't quantified it.
 
-> "A quick audit tool would actually be useful before monthly budgeting."
-
-### Most Interesting Insight
-
-The founder cared more about reducing overlapping subscriptions than finding the absolute cheapest tool.
-
-### What Changed In My Design
-
-I adjusted the recommendation logic to:
-- highlight unnecessary overlapping plans
-- focus on practical savings instead of extreme optimization
+**What it changed about my design:** I made sure the form requires zero account 
+connections or billing integrations. User types in their own numbers manually. 
+No data collection upfront. The note at the bottom — "All calculations run locally, 
+nothing is sent to a server" — came directly from his privacy concern.
 
 ---
 
-# Interview 3
+## Interview 2 — P.M., Engineering Student, Side Projects
 
-### Person
-M.P. — Indie developer building side projects
+**Background:** Third year engineering student who pays for AI tools personally 
+for coding assignments and side projects.
 
-### Conversation Summary
+**Direct quotes:**
 
-The user frequently switches between:
-- Claude
-- ChatGPT
-- Gemini
+> "Yeah, I personally pay for a couple of AI tools that I use pretty often."
 
-depending on tasks like coding, writing, and research.
+> "I'd guess I spend around ₹2k–₹5k per month on subscriptions overall."
 
-They mentioned subscription fatigue from experimenting with too many AI tools simultaneously.
+> "Yeah, I'd definitely try a free tool if it could clearly show where I'm overspending."
 
-### Direct Quotes
+> "I probably wouldn't use it if it felt unsafe with my data or took too much effort 
+> to connect everything."
 
-> "I keep testing new AI tools and forget to cancel old ones."
+**Most surprising thing:** He quoted his spend in rupees without thinking about 
+it — ₹2k–₹5k is roughly $25–$60/month which is a significant amount for a student. 
+He clearly feels the cost but has never compared it against what he actually needs.
 
-> "Most people don't know how much they're actually spending yearly."
+**What it changed about my design:** Reinforced that the form must stay simple 
+with zero friction — no OAuth, no API keys, just manual number entry. Also made 
+me think about INR support as a future feature since many Indian users are paying 
+in rupees for USD-priced tools.
 
-> "The yearly savings number is more shocking than monthly cost."
+---
 
-### Most Interesting Insight
+## Interview 3 — A.S., Engineering Student, Uses AI for Team Projects
 
-The user reacted much more strongly to annual savings projections than monthly savings.
+**Background:** Final year engineering student whose team uses ChatGPT Plus, 
+Cursor and Claude across multiple college projects. Has some visibility into 
+combined team spend.
 
-### What Changed In My Design
+**Direct quotes:**
 
-I made annual savings more visually prominent in the audit results section and focused on clearer summary messaging.
+> "I know roughly what I pay personally, but when you add up what the whole team 
+> is using, I'd have to actually sit down and check. It's probably more than I think."
+
+> "My first thought would be what's the catch? Like, is it going to try to sell me 
+> something after, or is it collecting my data?"
+
+> "If it felt transparent and didn't ask for anything weird upfront, I'd probably 
+> give it a shot."
+
+> "If it asked me to connect accounts or share billing details right away, I'd close 
+> the tab immediately."
+
+**Most surprising thing:** Even someone who actively uses 3 AI tools across a 
+team has never added up the real combined cost. He said "it's probably more than 
+I think" — which is exactly the moment the audit tool creates value.
+
+**What it changed about my design:** Two direct changes. First, email capture 
+comes only after the audit result is shown — he would close the tab immediately 
+if asked for anything upfront. Second, transparency text on the form came from 
+his "what's the catch" reaction. Trust has to be established before asking for 
+anything.
